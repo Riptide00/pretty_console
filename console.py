@@ -1,7 +1,7 @@
 """Pretty console for Windows."""
 import colorama
 import consolesize
-import show_hide_cursor as cursor
+import cursor
 import os
 import _thread
 
@@ -77,9 +77,9 @@ class Console(object):
                   "-" * self._get_width() + '\n' + self.ps1)
         cursor.hide()
         print(self._get_color("BLACK") +
-              self._set_cursor(0, (h - 3)) +
-              "*" * self._get_width() + '\n' +
-              "*" * (len(c) + 3))
+              self._set_cursor(1, (h - 3)) +
+              " " * self._get_width() + '\n' +
+              " " * (len(c) + 3))
         return c
 
     def set_title(self, title):
@@ -160,4 +160,7 @@ def _main():
 
 
 if __name__ == '__main__':
-    _main()
+    try:
+        _main()
+    except:
+        cursor.show()
