@@ -32,4 +32,4 @@ v1.0.0/dev: Development build.
 
 # License
 
-[__License__](/LICENSE.txt)
+[__License__](/LICENSE)
