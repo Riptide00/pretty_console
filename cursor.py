@@ -8,7 +8,7 @@ class _CursorInfo(ctypes.Structure):
 
 
 def hide():
-    """Hide console cursor."""
+    """Hide cursor."""
     ci = _CursorInfo()
     handle = ctypes.windll.kernel32.GetStdHandle(-11)
     ctypes.windll.kernel32.GetConsoleCursorInfo(handle, ctypes.byref(ci))
@@ -23,3 +23,8 @@ def show():
     ctypes.windll.kernel32.GetConsoleCursorInfo(handle, ctypes.byref(ci))
     ci.visible = True
     ctypes.windll.kernel32.SetConsoleCursorInfo(handle, ctypes.byref(ci))
+
+
+def set(x, y):
+    """Set cursor position."""
+    return "\033[" + str(y) + ";" + str(x) + "H"

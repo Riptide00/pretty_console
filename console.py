@@ -59,10 +59,10 @@ class Console(object):
         w, h = consolesize.get_console_size()
         for b in range(0, h - 7):
             print(self._get_color("BLACK") +
-                  self._set_cursor(1, 3 + b) + (" " * w))
+                  cursor.set(1, 3 + b) + (" " * w))
         rang = self.console_buffer[-(self._get_height() - 8):]
         blob = "\n".join(rang)
-        print(self._set_cursor(1, 4) +
+        print(cursor.set(1, 4) +
               self._get_color("BLACK") +
               blob)
         cursor.show()
@@ -71,7 +71,7 @@ class Console(object):
         cursor.hide()
         padding = int((self._get_width() / 2) - (len(self.title) / 2))
         s = (self._get_color(self.color) +
-             self._set_cursor(1, 1) +
+             cursor.set(1, 1) +
              (" " * padding) +
              self.title +
              (" " * padding))
@@ -83,11 +83,11 @@ class Console(object):
         cursor.show()
         h = self._get_height()
         c = input(self._get_color("BLACK") +
-                  self._set_cursor(1, (h - 3)) +
+                  cursor.set(1, (h - 3)) +
                   "_" * self._get_width() + '\n' + self.ps1)
         cursor.hide()
         print(self._get_color("BLACK") +
-              self._set_cursor(1, (h - 3)) +
+              cursor.set(1, (h - 3)) +
               " " * self._get_width() + '\n' +
               " " * (len(c) + 3))
         return c
@@ -101,9 +101,6 @@ class Console(object):
         """Set a new color."""
         self.color = color.upper()
         self._update_title_bar()
-
-    def _set_cursor(self, x, y):
-        return "\033[" + str(y) + ";" + str(x) + "H"
 
     def _get_height(self):
         x, y = consolesize.get_console_size()
