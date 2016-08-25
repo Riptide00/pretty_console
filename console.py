@@ -2,12 +2,9 @@
 import colorama
 import _thread
 import os
-try:
-    import pretty_console.consolesize as consolesize
-    import pretty_console.cursor as cursor
-except:
-    import consolesize
-    import cursor
+import consolesize
+import cursor
+import text
 
 
 class Console(object):
@@ -26,10 +23,14 @@ class Console(object):
         colorama.init()
         cursor.hide()
 
-    def gui(self):
-        """Spa."""
+    def start(self):
+        """Initiate gui."""
         self._update()
         _thread.start_new_thread(self._detect_change, ())
+
+    def stop(self):
+        """Stop gui."""
+        pass
 
     def out(self, output):
         """Console io should be directed here."""
@@ -41,55 +42,18 @@ class Console(object):
         self.console_buffer = list()
         self._update_console_out()
 
-    def _detect_change(self):
-        w, h = consolesize.get_console_size()
-        while True:
-            if w is not self._get_width() or h is not self._get_height():
-                w = self._get_width()
-                h = self._get_height()
-                self._update()
-
-    def _update(self):
-        os.system('cls')
-        self._update_title_bar()
-        self._update_console_out()
-
-    def _update_console_out(self):
-        cursor.hide()
-        w, h = consolesize.get_console_size()
-        for b in range(0, h - 7):
-            print(self._get_color("BLACK") +
-                  cursor.set(1, 3 + b) + (" " * w))
-        rang = self.console_buffer[-(self._get_height() - 8):]
-        blob = "\n".join(rang)
-        print(cursor.set(1, 4) +
-              self._get_color("BLACK") +
-              blob)
-        cursor.show()
-
-    def _update_title_bar(self):
-        cursor.hide()
-        padding = int((self._get_width() / 2) - (len(self.title) / 2))
-        s = (self._get_color(self.color) +
-             cursor.set(1, 1) +
-             (" " * padding) +
-             self.title +
-             (" " * padding))
-        print(s)
-        cursor.show()
-
     def get_input(self):
         """Return user input."""
         cursor.show()
-        h = self._get_height()
-        c = input(self._get_color("BLACK") +
-                  cursor.set(1, (h - 3)) +
-                  "_" * self._get_width() + '\n' + self.ps1)
+        h = consolesize.get_height()
+        c = input(text.set_color("BLACK") +
+                 cursor.set(1, (h - 3)) +
+                 "_" * consolesize.get_width() + '\n' + self.ps1)
         cursor.hide()
-        print(self._get_color("BLACK") +
+        print((text.set_color("BLACK") +
               cursor.set(1, (h - 3)) +
-              " " * self._get_width() + '\n' +
-              " " * (len(c) + 3))
+              " " * consolesize.get_width() + '\n' +
+              " " * (len(c) + 3)))
         return c
 
     def set_title(self, title):
@@ -102,39 +66,54 @@ class Console(object):
         self.color = color.upper()
         self._update_title_bar()
 
-    def _get_height(self):
-        x, y = consolesize.get_console_size()
-        return y
+    def _detect_change(self):
+        """Detect width or height changing."""
+        w, h = consolesize.get_console_size()
+        while True:
+            if w is not consolesize.get_width() \
+            or h is not consolesize.get_height():
+                w = consolesize.get_width()
+                h = consolesize.get_height()
+                self._update()
 
-    def _get_width(self):
-        x, y = consolesize.get_console_size()
-        return x
+    def _update(self):
+        """Complete refresh."""
+        os.system('cls')
+        self._update_title_bar()
+        self._update_console_out()
 
-    def _get_color(self, color):
-        if color == "BLACK":
-            return colorama.Back.BLACK + colorama.Fore.WHITE
-        elif color == "RED":
-            return colorama.Back.RED + colorama.Fore.WHITE
-        elif color == "GREEN":
-            return colorama.Back.GREEN + colorama.Fore.WHITE
-        elif color == "YELLOW":
-            return colorama.Back.YELLOW + colorama.Fore.BLACK
-        elif color == "BLUE":
-            return colorama.Back.BLUE + colorama.Fore.WHITE
-        elif color == "MAGENTA":
-            return colorama.Back.MAGENTA + colorama.Fore.WHITE
-        elif color == "CYAN":
-            return colorama.Back.CYAN + colorama.Fore.BLACK
-        elif color == "WHITE":
-            return colorama.Back.WHITE + colorama.Fore.BLACK
-        else:
-            self._get_color("BLACK")
+    def _update_console_out(self):
+        """Refresh output."""
+        cursor.hide()
+        w, h = consolesize.get_console_size()
+        for b in range(0, h - 7):
+            print((text.set_color("BLACK") +
+                  cursor.set(1, 3 + b) + (" " * w)))
+        rang = self.console_buffer[-(consolesize.get_height() - 8):]
+        blob = "\n".join(rang)
+        print((cursor.set(1, 4) +
+              text.set_color("BLACK") +
+              blob))
+        cursor.show()
+
+    def _update_title_bar(self):
+        """Refresh titlebar."""
+        cursor.hide()
+        padding = int((consolesize.get_width() / 2) - (len(self.title) / 2))
+        s = (text.set_color(self.color) +
+             cursor.set(1, 1) +
+             (" " * padding) +
+             self.title +
+             (" " * padding))
+        print(s)
+        cursor.show()
 
 
 def _main():
+    """Builtin console."""
     import sys
     c = Console()
-    c.gui()
+    c.start()
     get_input = True
     while True:
         while get_input:
