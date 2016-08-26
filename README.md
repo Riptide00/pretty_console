@@ -6,7 +6,7 @@
 ![Version](https://img.shields.io/badge/Latest-1.0.0/dev-blue.svg)
 ![Repo size](https://reposs.herokuapp.com/?path=riptide00/pretty_console)
 
-# Pretty console
+# Pretty
 
 ## Installation
 
@@ -14,10 +14,15 @@
 
 ## Use
 
+    COMING SOON
 
 ## Todo
 
-- [ ] Find todos (it won't be hard)
+- [ ] Smooth output
+- [ ] Catch std.out and redirect to console.buffer
+- [ ] Refactor 'pretty_console' to just 'pretty'
+- [ ] Make this a package (Research '__init__.py' and such ...)
+- [ ] Cleanup! IMPORTANT (Threads are spawned without any 'control' atm)
 
 ## Contributing
 1. Fork it!

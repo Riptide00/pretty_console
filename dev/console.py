@@ -30,7 +30,7 @@ class Console(object):
 
     def stop(self):
         """Stop gui."""
-        pass
+        os.system('cls')
 
     def out(self, output):
         """Console io should be directed here."""
