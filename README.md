@@ -17,41 +17,41 @@ read values like the console width and or height.
 
 ## Use
 
-    ### console.Console()
+### console.Console()
 
-    ### console.start()
+### console.start()
 
-    ### console.stop()
+### console.stop()
 
-    ### console.title("title")
+### console.title("title")
 
-    ### console.color("COLOR")
+### console.color("COLOR")
 
-    ### console.out("Wabelabedubdub")
+### console.out("Wabelabedubdub")
 
-    ### console.get_input()
+### console.get_input()
 
-    ### consolesize.get()
+### consolesize.get()
 
-    ### consolesize.get_height()
+### consolesize.get_height()
 
-    ### consolesize.get_width()
+### consolesize.get_width()
 
-    ### consolesize.set(12, 20)
+### consolesize.set(12, 20)
 
-    ### consolesize.set_height(12)
+### consolesize.set_height(12)
 
-    ### consolesize.set_width(20)
+### consolesize.set_width(20)
 
-    ### cursor.set(10, 20)
+### cursor.set(10, 20)
 
-    ### cursor.show()
+### cursor.show()
 
-    ### cursor.hide()
+### cursor.hide()
 
-    ### text.center("help")
+### text.center("help")
 
-    ### text.color("red", "color this text")
+### text.color("red", "color this text")
 
 ## Todo
 
