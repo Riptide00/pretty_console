@@ -17,19 +17,19 @@ read values like the console width and or height.
 
 ## Use
 
-### console.Console()
+### c = console.Console()
 
-### console.start()
+### c.start()
 
-### console.stop()
+### c.stop()
 
-### console.title("title")
+### c.title("title")
 
-### console.color("COLOR")
+### c.color("COLOR")
 
-### console.out("Wabelabedubdub")
+### c.out("Wabelabedubdub")
 
-### console.get_input()
+### c.get_input()
 
 ### consolesize.get()
 
