@@ -37,7 +37,7 @@ def center(text):
 
 
 def _width():
-    x, y = consolesize.get_console_size()
+    x, y = consolesize.get_size()
     return x
 
 

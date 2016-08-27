@@ -1,7 +1,7 @@
 
-![Mac](https://img.shields.io/badge/OS X-Unsupported-red.svg)
+![Mac](https://img.shields.io/badge/OS X-Unavailable-red.svg)
 ![Windows](https://img.shields.io/badge/Windows-Supported-brightgreen.svg)
-![Linux](https://img.shields.io/badge/Linux-Unsupported-red.svg)
+![Linux](https://img.shields.io/badge/Linux-Unavailable-red.svg)
 ![Development](https://img.shields.io/badge/Development-busy-brightgreen.svg)
 ![Version](https://img.shields.io/badge/Latest-1.0.0/dev-blue.svg)
 ![Repo size](https://reposs.herokuapp.com/?path=riptide00/pretty_console)

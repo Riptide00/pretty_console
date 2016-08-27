@@ -47,13 +47,13 @@ class Console(object):
         cursor.show()
         h = consolesize.get_height()
         c = input(text.set_color("BLACK") +
-                 cursor.set(1, (h - 3)) +
-                 "_" * consolesize.get_width() + '\n' + self.ps1)
+                  cursor.set(1, (h - 3)) +
+                  "_" * consolesize.get_width() + '\n' + self.ps1)
         cursor.hide()
         print((text.set_color("BLACK") +
-              cursor.set(1, (h - 3)) +
-              " " * consolesize.get_width() + '\n' +
-              " " * (len(c) + 3)))
+               cursor.set(1, (h - 3)) +
+               " " * consolesize.get_width() + '\n' +
+               " " * (len(c) + 3)))
         return c
 
     def set_title(self, title):
@@ -68,10 +68,10 @@ class Console(object):
 
     def _detect_change(self):
         """Detect width or height changing."""
-        w, h = consolesize.get_console_size()
+        w, h = consolesize.get_size()
         while True:
             if w is not consolesize.get_width() \
-            or h is not consolesize.get_height():
+               or h is not consolesize.get_height():
                 w = consolesize.get_width()
                 h = consolesize.get_height()
                 self._update()
@@ -85,7 +85,7 @@ class Console(object):
     def _update_console_out(self):
         """Refresh output."""
         cursor.hide()
-        w, h = consolesize.get_console_size()
+        w, h = consolesize.get_size()
         for b in range(0, h - 7):
             print((text.set_color("BLACK") +
                   cursor.set(1, 3 + b) + (" " * w)))
@@ -137,6 +137,13 @@ def _main():
             elif com == 'lorem':
                 for x in range(0, 50):
                     c.out(str(x))
+            elif com == 'set_size':
+                try:
+                    x = arg[0]
+                    y = arg[1]
+                    consolesize.set(x, y)
+                except:
+                    pass
             elif com == 'exit':
                 os.system('cls')
                 sys.exit(0)
