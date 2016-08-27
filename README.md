@@ -8,16 +8,54 @@
 
 # Pretty
 
+Do stuff in the console! set cursor position, console size or 
+read values like the console width and or height.
+
 ## Installation
 
     > pip install -r requirements.txt
 
 ## Use
 
-    COMING SOON
+    ### console.Console()
+
+    ### console.start()
+
+    ### console.stop()
+
+    ### console.title("title")
+
+    ### console.color("COLOR")
+
+    ### console.out("Wabelabedubdub")
+
+    ### console.get_input()
+
+    ### consolesize.get()
+
+    ### consolesize.get_height()
+
+    ### consolesize.get_width()
+
+    ### consolesize.set(12, 20)
+
+    ### consolesize.set_height(12)
+
+    ### consolesize.set_width(20)
+
+    ### cursor.set(10, 20)
+
+    ### cursor.show()
+
+    ### cursor.hide()
+
+    ### text.center("help")
+
+    ### text.color("red", "color this text")
 
 ## Todo
 
+- [ ] Get cursor position (impossible?)
 - [ ] Smooth output
 - [ ] Catch std.out and redirect to console.buffer
 - [ ] Refactor 'pretty_console' to just 'pretty'

@@ -3,46 +3,52 @@ import consolesize
 import colorama
 
 
-def set_color(color):
+def color(color, text):
     """Set text color."""
+    color = color.upper()
     if color == "BLACK":
-        return colorama.Back.BLACK + colorama.Fore.WHITE
+        return (colorama.Back.BLACK + colorama.Fore.WHITE + text +
+                colorama.Back.BLACK + colorama.Fore.WHITE)
     elif color == "RED":
-        return colorama.Back.RED + colorama.Fore.WHITE
+        return (colorama.Back.RED + colorama.Fore.WHITE + text +
+                colorama.Back.BLACK + colorama.Fore.WHITE)
     elif color == "GREEN":
-        return colorama.Back.GREEN + colorama.Fore.WHITE
+        return (colorama.Back.GREEN + colorama.Fore.WHITE + text +
+                colorama.Back.BLACK + colorama.Fore.WHITE)
     elif color == "YELLOW":
-        return colorama.Back.YELLOW + colorama.Fore.BLACK
+        return (colorama.Back.YELLOW + colorama.Fore.BLACK + text +
+                colorama.Back.BLACK + colorama.Fore.WHITE)
     elif color == "BLUE":
-        return colorama.Back.BLUE + colorama.Fore.WHITE
+        return (colorama.Back.BLUE + colorama.Fore.WHITE + text +
+                colorama.Back.BLACK + colorama.Fore.WHITE)
     elif color == "MAGENTA":
-        return colorama.Back.MAGENTA + colorama.Fore.WHITE
+        return (colorama.Back.MAGENTA + colorama.Fore.WHITE + text +
+                colorama.Back.BLACK + colorama.Fore.WHITE)
     elif color == "CYAN":
-        return colorama.Back.CYAN + colorama.Fore.BLACK
+        return (colorama.Back.CYAN + colorama.Fore.BLACK + text +
+                colorama.Back.BLACK + colorama.Fore.WHITE)
     elif color == "WHITE":
-        return colorama.Back.WHITE + colorama.Fore.BLACK
+        return (colorama.Back.WHITE + colorama.Fore.BLACK + text +
+                colorama.Back.BLACK + colorama.Fore.WHITE)
     else:
-        return colorama.Back.BLACK + colorama.Fore.WHITE
+        return(colorama.Back.BLACK + colorama.Fore.WHITE + text +
+               colorama.Back.BLACK + colorama.Fore.WHITE)
 
 
 def center(text):
         """Center text."""
-        padding = (_width() / 2) - (len(text) / 2)
+        padding = (consolesize.width() / 2) - (len(text) / 2)
         padding = int(padding)
-        s = " "
-        for x in range(0, padding):
-            s += " "
+        s = " " * padding
         s += text
+        s += " " * padding
         return s
 
 
-def _width():
-    x, y = consolesize.get_size()
-    return x
-
-
-def _main():
-    print(center("Centered text."))
+def main():
+    """Example."""
+    print(color("Red",
+                center("Centered text.")))
 
 if __name__ == '__main__':
-    _main()
+    main()

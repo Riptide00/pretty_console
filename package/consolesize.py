@@ -3,7 +3,7 @@ import struct
 import os
 
 
-def get_size():
+def get():
     """Get console width and height."""
     try:
         from ctypes import windll, create_string_buffer
@@ -21,21 +21,21 @@ def get_size():
         pass
 
 
-def get_height():
+def height():
     """Get console height."""
-    x, y = get_size()
+    x, y = get()
     return y
 
 
-def get_width():
+def width():
     """Get console width."""
-    x, y = get_size()
+    x, y = get()
     return x
 
 
 def set(x, y):
     """Set console width and height."""
-    os.system("mode con: cols=" + str(x) + "lines=" + str(y)
+    os.system("mode con: cols=" + str(x) + "lines=" + str(y))
 
 
 def set_width(x):
@@ -49,5 +49,5 @@ def set_height(y):
 
 if __name__ == '__main__':
     while True:
-        print("Height: " + str(get_height()) + " " +
-              "Width: " + str(get_width()) + "\r")
+        print("Height: " + str(height()) + " " +
+              "Width: " + str(width()) + "\r")

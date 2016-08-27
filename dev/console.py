@@ -11,13 +11,13 @@ class Console(object):
     """Console."""
 
     def __init__(self,
-                 title='',
-                 color="WHITE",
+                 name='',
+                 titlebar_color="WHITE",
                  ps1=' > '):
         """Initiation."""
         super(Console, self).__init__()
-        self.color = color.upper()
-        self.title = title
+        self.titlebar_color = titlebar_color.upper()
+        self.name = name
         self.ps1 = ps1
         self.console_buffer = list()
         colorama.init()
@@ -45,35 +45,36 @@ class Console(object):
     def get_input(self):
         """Return user input."""
         cursor.show()
-        h = consolesize.get_height()
-        c = input(text.set_color("BLACK") +
-                  cursor.set(1, (h - 3)) +
-                  "_" * consolesize.get_width() + '\n' + self.ps1)
+        h = consolesize.height() - 3
+        w = consolesize.width()
+        c = input(cursor.set(1, h) +
+                  text.color("BLACK",
+                             "_" * w + '\n' + self.ps1))
         cursor.hide()
-        print((text.set_color("BLACK") +
-               cursor.set(1, (h - 3)) +
-               " " * consolesize.get_width() + '\n' +
-               " " * (len(c) + 3)))
+        blackout = " " * len(c + self.ps1)
+        print(cursor.set(1, h) +
+              text.color("BLACK",
+                         " " * w + '\n' + blackout))
         return c
 
-    def set_title(self, title):
+    def title(self, name):
         """Set a new title."""
-        self.title = title
+        self.name = name
         self._update_title_bar()
 
-    def set_color(self, color):
+    def color(self, new_color):
         """Set a new color."""
-        self.color = color.upper()
+        self.titlebar_color = new_color.upper()
         self._update_title_bar()
 
     def _detect_change(self):
         """Detect width or height changing."""
-        w, h = consolesize.get_size()
+        w, h = consolesize.get()
         while True:
-            if w is not consolesize.get_width() \
-               or h is not consolesize.get_height():
-                w = consolesize.get_width()
-                h = consolesize.get_height()
+            if w is not consolesize.width() \
+               or h is not consolesize.height():
+                w = consolesize.width()
+                h = consolesize.height()
                 self._update()
 
     def _update(self):
@@ -85,26 +86,23 @@ class Console(object):
     def _update_console_out(self):
         """Refresh output."""
         cursor.hide()
-        w, h = consolesize.get_size()
+        w, h = consolesize.get()
         for b in range(0, h - 7):
-            print((text.set_color("BLACK") +
-                  cursor.set(1, 3 + b) + (" " * w)))
-        rang = self.console_buffer[-(consolesize.get_height() - 8):]
+            print(cursor.set(1, 3 + b) +
+                  text.color("BLACK",
+                  " " * w))
+        rang = self.console_buffer[-(h - 8):]
         blob = "\n".join(rang)
-        print((cursor.set(1, 4) +
-              text.set_color("BLACK") +
-              blob))
+        print(cursor.set(1, 4) +
+              text.color("BLACK", blob))
         cursor.show()
 
     def _update_title_bar(self):
         """Refresh titlebar."""
         cursor.hide()
-        padding = int((consolesize.get_width() / 2) - (len(self.title) / 2))
-        s = (text.set_color(self.color) +
-             cursor.set(1, 1) +
-             (" " * padding) +
-             self.title +
-             (" " * padding))
+        s = (cursor.set(1, 1) +
+             text.color(self.titlebar_color,
+                        text.center(self.name)))
         print(s)
         cursor.show()
 
@@ -122,13 +120,13 @@ def _main():
             arg = inp.split(" ")[1:]
             if com == 'clear' or com == 'cls':
                 c.clear()
-            elif com == 'set_color':
-                c.set_color(arg[0])
-            elif com == 'set_title':
+            elif com == 'color':
+                c.color(arg[0])
+            elif com == 'title':
                 s = ""
                 for a in arg:
                     s += a + " "
-                c.set_title(s)
+                c.title(s)
             elif com == 'echo':
                 s = ""
                 for a in arg:
@@ -137,7 +135,7 @@ def _main():
             elif com == 'lorem':
                 for x in range(0, 50):
                     c.out(str(x))
-            elif com == 'set_size':
+            elif com == 'size':
                 try:
                     x = arg[0]
                     y = arg[1]
@@ -147,7 +145,8 @@ def _main():
             elif com == 'exit':
                 os.system('cls')
                 sys.exit(0)
-            elif com == 'disable_input':
+            elif com == 'disable':
+                c.out("Press 'CRTL + C' to quit.")
                 get_input = False
             else:
                 pass
